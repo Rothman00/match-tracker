@@ -14,12 +14,6 @@ class Partido
     private ?int $par_id = null;
 
     #[ORM\Column]
-    private ?int $par_visitante = null;
-
-    #[ORM\Column]
-    private ?int $par_local = null;
-
-    #[ORM\Column]
     private ?\DateTime $par_fecha = null;
 
     #[ORM\Column(length: 255)]
@@ -34,33 +28,17 @@ class Partido
     #[ORM\Column]
     private ?\DateTime $par_fecha_crea = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(name: 'par_local', referencedColumnName: 'equ_id', nullable: false)]
+    private ?Equipo $equipoLocal = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(name: 'par_visitante', referencedColumnName: 'equ_id', nullable: false)]
+    private ?Equipo $equipoVisitante = null;
+
     public function getParId(): ?int
     {
         return $this->par_id;
-    }
-
-    public function getParVisitante(): ?int
-    {
-        return $this->par_visitante;
-    }
-
-    public function setParVisitante(int $par_visitante): static
-    {
-        $this->par_visitante = $par_visitante;
-
-        return $this;
-    }
-
-    public function getParLocal(): ?int
-    {
-        return $this->par_local;
-    }
-
-    public function setParLocal(int $par_local): static
-    {
-        $this->par_local = $par_local;
-
-        return $this;
     }
 
     public function getParFecha(): ?\DateTime
@@ -119,6 +97,30 @@ class Partido
     public function setParFechaCrea(\DateTime $par_fecha_crea): static
     {
         $this->par_fecha_crea = $par_fecha_crea;
+
+        return $this;
+    }
+
+    public function getEquipoLocal(): ?Equipo
+    {
+        return $this->equipoLocal;
+    }
+
+    public function setEquipoLocal(Equipo $equipoLocal): static
+    {
+        $this->equipoLocal = $equipoLocal;
+
+        return $this;
+    }
+
+    public function getEquipoVisitante(): ?Equipo
+    {
+        return $this->equipoVisitante;
+    }
+
+    public function setEquipoVisitante(Equipo $equipoVisitante): static
+    {
+        $this->equipoVisitante = $equipoVisitante;
 
         return $this;
     }
